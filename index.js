@@ -7,7 +7,14 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 // mongodb
-
+const database = client.db("insight_hub_db");
+const usersCollection = database.collection("users");
+// users related api:
+app.post("users", async (req, res) => {
+  const users = req.body;
+  const result = await usersCollection.insertOne(users);
+  req.send(result);
+});
 const { MongoClient, ServerApiVersion } = require("mongodb");
 // const uri =
 //   "mongodb+srv://insight_hub:3R9QYjbvE3JSp9Uo@cluster0.6tngyrc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
